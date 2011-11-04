@@ -10,7 +10,12 @@ feature "Articles", %q{
     ["Bacon","Cheese"].each { |title| Article.create!(:title => title) }
   end
 
-  scenario "Article index" do
+  scenario %q{
+    Given I have articles titled "Bacon" and "Cheese"
+    When I go to the list of articles
+    Then I should see "Bacon"
+    And I should see "Cheese"
+  } do
     visit articles_path
     page.should have_content('Bacon')
     page.should have_content('Cheese')
